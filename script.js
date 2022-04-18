@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 
-
 if (localStorage.getItem('list of Books') === null) {
   localStorage.setItem('list of Books', JSON.stringify([]));
 }
@@ -53,6 +52,8 @@ function removeBook(i) {
 
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
+  const title = document.querySelector('#title');
+  const author = document.querySelector('#author');
   e.preventDefault();
   addBook(title.value, author.value);
 });
