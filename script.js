@@ -2,44 +2,59 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 
-const title = document.getElementById('title');
-const author = document.getElementById('author');
-const bookArray = [
-  {
-    author: 'Lorem Ipsum',
-    title: 'Testeroo Testyy',
-  },
-  {
-    author: 'Lorem Ipsum',
-    title: 'Testeroo Testyy',
-  },
-  {
-    author: 'Lorem Ipsum',
-    title: 'Testeroo Testyy',
-  },
-];
+
+if (localStorage.getItem('list of Books') === null) {
+  localStorage.setItem('list of Books', JSON.stringify([]));
+}
+
+// eslint-disable-next-line prefer-const
+let booksInLS = JSON.parse(localStorage.getItem('list of Books'));
+
+function updateLocalStorage() {
+  localStorage.setItem('list of Books', JSON.stringify(booksInLS));
+}
+
+function generateListOfBooks(arr) {
+  let items = '';
+  for (let i = 0; i < arr.length; i += 1) {
+    items += `
+        <li>${arr[i].title}</li> <br />
+        <li>${arr[i].author}</li> <br />
+        <li><button class="removeBtn" onclick="removeBook(${i})">Remove</button></li>
+        <hr />
+        `;
+  }
+  return items;
+}
+
+function showBooks() {
+  const bookList = document.querySelector('.bookList');
+  bookList.innerHTML = `
+          <ul id="theBooks">List of Books: <br />
+          ${generateListOfBooks(booksInLS)}</ul>
+      `;
+}
 
 function addBook(bookTitle, bookAuthor) {
-  bookArray.push({
-    author: bookAuthor,
+  const book = {
     title: bookTitle,
-  });
+    author: bookAuthor,
+  };
+  booksInLS.push(book);
+  updateLocalStorage();
+  showBooks();
 }
 
-function removeBook() {}
-
-function displayBooks() {
-
+function removeBook(i) {
+  booksInLS.splice(i, 1);
+  updateLocalStorage();
+  showBooks();
 }
 
-const bookList = document.querySelector('.bookList');
 const form = document.querySelector('form');
-
-// bookList.innerHTML = ``;
-
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   addBook(title.value, author.value);
 });
 
-displayBooks();
+window.onload = showBooks();
