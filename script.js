@@ -1,21 +1,43 @@
-const mainContent = document.querySelector('.main-content');
+let bookArray = [
+    {
+        author: 'Lorem Ipsum',
+        title: 'Testeroo Testyy'
+    },
+    {
+        author: 'Lorem Ipsum',
+        title: 'Testeroo Testyy'
+    },
+    {
+        author: 'Lorem Ipsum',
+        title: 'Testeroo Testyy'
+    }
+];
 
-mainContent.innerHTML = `
-<h1>Awesome books</h1>
-<div class="removeBook">
-<p>Lorem ipsum</p>
-<p>Testeroo Testyy</p>
-<button type="button">Remove</button>
-</div>
-<div class="removeBook">
-<p>Lorem ipsum</p>
-<p>Testeroo Testyy</p>
-<button type="button">Remove</button>
-</div>
+function addBook(bookTitle, bookAuthor) {
+    bookArray.push(
+        {
+            author: bookAuthor,
+            title: bookTitle
+        }
+    );
+}
 
-<div class="addBook">
-<input type="text" placeholder="Title"><br>
-<input type="text" placeholder="Author"><br>
-<button type="button">Add</button>
-</div>
-`
+function removeBook() {
+
+}
+
+function displayBooks() {
+    console.log(bookArray);
+}
+
+const bookList = document.querySelector('.bookList');
+const form = document.querySelector('form');
+
+// bookList.innerHTML = ``;
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addBook(title.value, author.value);
+});
+
+displayBooks();
