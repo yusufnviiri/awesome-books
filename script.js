@@ -59,3 +59,9 @@ form.addEventListener('submit', (e) => {
 });
 
 window.onload = showBooks();
+class Books {
+  constructor(title, author) {
+    this.title = title;
+    this.author = author;
+  }
+}
